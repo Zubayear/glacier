@@ -5,6 +5,7 @@ import (
 	"glacier/internal/domain"
 )
 
+// PgUserRepository(outer layer) provides the implementaion contract defined in inner layer
 type PgUserRepository struct {
 	db *sql.DB
 }
