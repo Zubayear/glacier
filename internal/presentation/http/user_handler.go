@@ -29,5 +29,5 @@ func (h *UserHandler) CreateUser(w http.ResponseWriter, r *http.Request)  {
 	}
 
 	w.WriteHeader(http.StatusCreated)
-	w.Write([]byte(string(user.ID)))
+	w.Write([]byte(user.Email))
 }
