@@ -9,6 +9,7 @@ import (
 // It depends on the UserRepositoryPort interface.
 type UserService struct {
 	repo ports.UserRepositoryPort
+	log  ports.LoggerPort
 }
 
 func NewUserService(repo ports.UserRepositoryPort) *UserService {
@@ -18,12 +19,16 @@ func NewUserService(repo ports.UserRepositoryPort) *UserService {
 }
 
 func (s *UserService) CreateUser(name, email string) (*domain.User, error) {
+	s.log.Info("Attempting to create a new user", "email", email)
 	user, err := domain.NewUser(name, email)
 	if err != nil {
+		s.log.Error("Failed to create user due to invalid data", "error", err)
 		return nil, err
 	}
 	if err := s.repo.Save(user); err != nil {
+		s.log.Error("Failed to save user to repository", "error", err)
 		return nil, err
 	}
+	s.log.Info("Successfully created user", "userID", user.ID)
 	return user, nil
 }

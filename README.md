@@ -45,22 +45,20 @@ The project is organized into layers, each with a distinct role.
 ## 🛠️ How to Run
 1. Prerequisites:
     - Go (version 1.18 or higher)
-    - A PostgreSQL database running locally (or you can modify the code to use another database).
 
 2. Clone the repository:
-```bash
+```
 git clone [your-repo-url]
 cd [your-repo-name]
 ```
 
 3. Get dependencies:
-```bash
+```
 go mod tidy
 ```
 
 4. Run the application:
-
-```bash
+```
 go run cmd/app/main.go
 ```
 

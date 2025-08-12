@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"glacier/internal/application/services"
+	"glacier/internal/infrastructure/logger"
 	"glacier/internal/infrastructure/repository"
 	"glacier/internal/infrastructure/server"
 	http2 "glacier/internal/presentation/http"
@@ -17,6 +18,12 @@ func main() {
 		log.Fatal(err)
 	}
 	defer db.Close()
+
+	appLogger, err := logger.NewProductionLogger(true, "go-app")
+	if err != nil {
+		log.Fatalf("Failed to create logger: %v", err)
+	}
+	defer appLogger.Sync()
 
 	// 2. Create the concrete repository, which implements the port.
 	userRepo := repository.NewPgUserRepository(db)
