@@ -7,12 +7,12 @@ import (
 
 // User represents a user entity in the system
 type User struct {
-	ID uint64
-	Name string
+	ID    uint64
+	Name  string
 	Email string
 }
 
-func NewUser(name, email string) (*User, error)  {
+func NewUser(name, email string) (*User, error) {
 	if name == "" || email == "" {
 		return nil, errors.New("name and email cannot be empty")
 	}
@@ -22,7 +22,7 @@ func NewUser(name, email string) (*User, error)  {
 		return nil, errors.New("invalid email format")
 	}
 	return &User{
-		Name: name,
+		Name:  name,
 		Email: email,
 	}, nil
 }

@@ -3,7 +3,6 @@ package http
 import (
 	"glacier/internal/application/services"
 	"net/http"
-
 )
 
 type UserHandler struct {
@@ -16,9 +15,9 @@ func NewUserHandler(userService *services.UserService) *UserHandler {
 	}
 }
 
-func (h *UserHandler) CreateUser(w http.ResponseWriter, r *http.Request)  {
+func (h *UserHandler) CreateUser(w http.ResponseWriter, r *http.Request) {
 	var requestBody struct {
-		Name string `json:"name"`
+		Name  string `json:"name"`
 		Email string `json:"email"`
 	}
 

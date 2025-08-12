@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"glacier/internal/application/services"
 	"glacier/internal/infrastructure/repository"
+	"glacier/internal/infrastructure/server"
 	http2 "glacier/internal/presentation/http"
 	"log"
 	"net/http"
@@ -26,7 +27,7 @@ func main() {
 	// 4. Create the handler, injecting the use case.
 	userHandler := http2.NewUserHandler(userService)
 
-	// 5. Set up the routes and start the server.
-	http.HandleFunc("/users", userHandler.CreateUser)
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	httpServer := server.NewServer(userHandler)
+	httpServer.SetupRoutes()
+	log.Fatal(http.ListenAndServe(":8080", httpServer.GetRouter()))
 }
