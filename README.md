@@ -78,14 +78,21 @@ This template is designed to make adding new features straightforward. Here is t
 
     * Domain: Define any new entities or business rules.
 
-    * Application: Create a new use case in the application/services package. This use case will contain the specific business logic for the new feature. Define any new ports (interfaces) in the application/ports package that the use case needs to interact with.
+    * Application: Create a new use case in the `application/services` package. This use case will contain the specific business logic for the new feature. Define any new ports (interfaces) in the `application/ports` package that the use case needs to interact with.
 
 2. Work your way outwards:
 
-    * Infrastructure: Create a new adapter in the infrastructure layer that implements the new port(s). For a database interaction, this would be a new repository implementation.
+    * Infrastructure: Create a new adapter in the `infrastructure` layer that implements the new port(s). For a database interaction, this would be a new repository implementation.
 
-    * Presentation: Create a new handler in the presentation/http package that handles the incoming HTTP request and calls your new use case.
+    * Presentation: Create a new handler in the `presentation/http` package that handles the incoming HTTP request and calls your new use case.
 
 3. Wire it all up:
 
-    * Composition Root (main.go): In cmd/app/main.go, create the concrete adapter(s), the new use case, and the new handler. Register the new endpoint with your server's router.
+    * Composition Root (`main.go`): In `cmd/app/main.go`, create the concrete adapter(s), the new use case, and the new handler. Register the new endpoint with your server's router.
+
+## 📦 Dependencies
+The project uses the following external libraries:
+
+* [go-chi](https://github.com/go-chi/chi): lightweight, idiomatic and composable router for building Go HTTP services.
+
+* [zap](https://github.com/uber-go/zap): Blazing fast, structured, leveled logging in Go.
