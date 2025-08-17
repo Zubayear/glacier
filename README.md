@@ -1,4 +1,8 @@
 # Go Clean Architecture Template
+[![Go Reference](https://pkg.go.dev/badge/github.com/Zubayear/glacier.svg)](https://pkg.go.dev/github.com/Zubayear/glacier)
+[![Go Report Card](https://goreportcard.com/badge/github.com/Zubayear/glacier)](https://goreportcard.com/report/github.com/Zubayear/glacier)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 This repository provides a template for building Go applications using a Clean Architecture approach. The primary goal is to create a maintainable, testable, and scalable application by strictly separating the core business logic from external dependencies like databases, web frameworks, and file systems.
 
 ## 🚀 Core Principles
@@ -13,7 +17,7 @@ This template adheres to the core principles of Clean Architecture
 ## 📂 Project Structure
 The project is organized into layers, each with a distinct role.
 
-```bash
+```
 ├── cmd
 │   └── app
 │       └── main.go           # The application's entry point (the composition root).
