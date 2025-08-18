@@ -98,5 +98,5 @@ This template is designed to make adding new features straightforward. Here is t
 The project uses the following external libraries:
 
 * [go-chi](https://github.com/go-chi/chi): lightweight, idiomatic and composable router for building Go HTTP services.
-
 * [zap](https://github.com/uber-go/zap): Blazing fast, structured, leveled logging in Go.
+* [pgx](https://github.com/jackc/pgx): PostgreSQL driver and toolkit for Go
