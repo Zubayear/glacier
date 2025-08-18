@@ -1,23 +1,25 @@
 package repository
 
 import (
-	"database/sql"
+	"context"
 	"glacier/internal/domain"
+
+	"github.com/jackc/pgx/v5/pgxpool"
 )
 
 // PgUserRepository (outer layer) provides the implementation contract defined in inner layer
 type PgUserRepository struct {
-	db *sql.DB
+	pool *pgxpool.Pool
 }
 
-func NewPgUserRepository(db *sql.DB) *PgUserRepository {
+func NewPgUserRepository(pool *pgxpool.Pool) *PgUserRepository {
 	return &PgUserRepository{
-		db: db,
+		pool,
 	}
 }
 
-func (r *PgUserRepository) Save(user *domain.User) error {
-	_, err := r.db.Exec("INSERT INTO users (name, email) VALUES ($1, $2)", user.Name, user.Email)
+func (r *PgUserRepository) Save(ctx context.Context, user *domain.User) error {
+	_, err := r.pool.Exec(ctx, "INSERT INTO users (name, email) VALUES ($1, $2)", user.Name, user.Email)
 	return err
 }
 

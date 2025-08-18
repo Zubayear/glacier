@@ -1,6 +1,7 @@
 package services
 
 import (
+	"context"
 	"glacier/internal/application/ports"
 	"glacier/internal/domain"
 )
@@ -12,20 +13,21 @@ type UserService struct {
 	log  ports.LoggerPort
 }
 
-func NewUserService(repo ports.UserRepositoryPort) *UserService {
+func NewUserService(repo ports.UserRepositoryPort, log ports.LoggerPort) *UserService {
 	return &UserService{
 		repo: repo,
+		log:  log,
 	}
 }
 
-func (s *UserService) CreateUser(name, email string) (*domain.User, error) {
+func (s *UserService) CreateUser(ctx context.Context, name, email string) (*domain.User, error) {
 	s.log.Info("Attempting to create a new user", "email", email)
 	user, err := domain.NewUser(name, email)
 	if err != nil {
 		s.log.Error("Failed to create user due to invalid data", "error", err)
 		return nil, err
 	}
-	if err := s.repo.Save(user); err != nil {
+	if err := s.repo.Save(ctx, user); err != nil {
 		s.log.Error("Failed to save user to repository", "error", err)
 		return nil, err
 	}

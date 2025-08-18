@@ -1,6 +1,7 @@
 package http
 
 import (
+	"encoding/json"
 	"glacier/internal/application/services"
 	"net/http"
 )
@@ -20,8 +21,14 @@ func (h *UserHandler) CreateUser(w http.ResponseWriter, r *http.Request) {
 		Name  string `json:"name"`
 		Email string `json:"email"`
 	}
+	err := json.NewDecoder(r.Body).Decode(&requestBody)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
 
-	user, err := h.userService.CreateUser(requestBody.Name, requestBody.Email)
+	ctx := r.Context()
+	user, err := h.userService.CreateUser(ctx, requestBody.Name, requestBody.Email)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return

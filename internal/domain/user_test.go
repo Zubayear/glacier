@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestUserValidation(t *testing.T)  {
+func TestUserValidation(t *testing.T) {
 	_, err := domain.NewUser("", "test@email.com")
 	if err == nil {
 		t.Errorf("Expected nil, Got %v", err)

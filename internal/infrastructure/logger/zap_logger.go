@@ -9,14 +9,14 @@ import (
 )
 
 type ZapLogger struct {
-	logger *zap.Logger
+	Logger *zap.Logger
 }
 
 func localTimeEncoder(t time.Time, enc zapcore.PrimitiveArrayEncoder) {
 	enc.AppendString(t.In(time.Local).Format("2006-01-02T15:04:05.000Z07:00"))
 }
 
-func NewProductionLogger(verbose bool, name string) (*zap.Logger, error) {
+func NewProductionLogger(verbose bool, name string) (*ZapLogger, error) {
 	logFile := fmt.Sprintf("logs/%s.log", name)
 	if err := os.MkdirAll("logs", 0755); err != nil {
 		return nil, fmt.Errorf("failed to create logs directory: %w", err)
@@ -58,13 +58,13 @@ func NewProductionLogger(verbose bool, name string) (*zap.Logger, error) {
 	)
 	core := zapcore.NewTee(fileCore, stdoutCore)
 	logger := zap.New(core, zap.AddCaller(), zap.AddStacktrace(zapcore.ErrorLevel))
-	return logger, nil
+	return &ZapLogger{logger}, nil
 }
 
 func (zl *ZapLogger) Info(msg string, fields ...any) {
-	zl.logger.Sugar().Infow(msg, fields)
+	zl.Logger.Sugar().Infow(msg, fields)
 }
 
 func (zl *ZapLogger) Error(msg string, fields ...any) {
-	zl.logger.Sugar().Errorw(msg, fields)
+	zl.Logger.Sugar().Errorw(msg, fields)
 }
